@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,32 +67,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $qr_code=time().rand();
+        $Spli=str_split($qr_code,4);
+        $qe_code_finsh=$Spli[2];
+      
 
-        // dd($data);
-        if($data['hidden']==1)
+        if($data['status']=="company")
         {
-            // $company= new Company();
-            return User::create([
+            $status="company";
+        }else{
+          
+            $status="Jop_serach";
+
+        }
+              return User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'status' => 'company',
+                'qr_code'=>$qe_code_finsh,
                 'password' => Hash::make($data['password']),
-            ]);
-        }
-        elseif  ($data['hidden']==2)
-        {
-            // $company= new Jobsearch();
-
-            return User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'status' => 'jobsearch',
-                'password' => Hash::make($data['password']),
-            ]);
-        }
+                'status' => $status,
+                ]);
+             
+      
+  
 
     }
-
     public function showRegistrationForm(Request $request)
     {
 

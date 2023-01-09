@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +16,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('check', function () {
+    return view('Front.Login.choose');
+})->name('check');
+
+ 
+Route::view('Register_Compony','Front.Login.company');
+Route::view('Jop_Search','Front.Login.Jop_Search');
+ 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('/check', function () { return view('choose'); })->name('check');
-
-
-Route::get('/register/{id}', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm']);

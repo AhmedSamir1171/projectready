@@ -15,6 +15,12 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <div class="visible-print text-center">
+                        {!! QrCode::size(250)->generate(Auth::user()->qr_code); !!}
+                        
+                        <h2 class="mt-4">{{ Auth::user()->qr_code }}</h2>
+                    </div>
                 </div>
             </div>
         </div>
